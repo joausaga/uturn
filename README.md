@@ -1,2 +1,3 @@
-# uturn
-Sense of Presence, Perspective-Taking and Usability in First-Person Split-Sphere 360° Video
+# Uturn
+
+This research examines the sense of presence, perspective-taking and usability of a split sphere, first-person perspective 360° video, drawing on data from a between-subjects experiment with 67 participants.
