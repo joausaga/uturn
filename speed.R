@@ -5,6 +5,25 @@
 # (variables in Presence12 file)?
 ###
 
+find_correlation = function(data) {
+  for (i in c(5:14)) {
+    x = data[!is.na(data[,i]),i]
+    for (j in c(15:24,26:29)) {
+      # y = data[, j]
+      y = data[!is.na(data[,j]),j]
+      if (length(y) == length(x)) {
+        r = cor.test(x, y, method='spearman', use='complete.obs', exact=F)
+        if (r$estimate > 0.50 && r$p.value < 0.05) {
+          print(paste('high and significant correlation (r=', round(r$estimate,2), 
+                      ', p-value=', round(r$p.value,5), ') between ', 
+                      colnames(data)[i], ' and ', colnames(data[j]), sep=''))
+        } 
+      }
+    }
+    print('')
+  }
+}
+
 # load libraries
 library(dplyr)
 
@@ -85,6 +104,12 @@ cor(presence_B$Speed,presence_B$E14,method='spearman',use='complete.obs')
 # E3 shows to be highly correlated with the amount of Speed (there is only one record for E13)
 
 # check correlation between E3 and the amount of Speed
-cor.test(presence_B$Speed,presence_B$E3,method='spearman', use='complete.obs', exact=F)
+cor.test(presence_B$Speed,presence_B$E3, method='spearman', use='complete.obs', exact=F)
 # S = 853.63, p-value = 0.0448
 # rho -0.5243376
+
+# correlation between sense of presence and embodiment
+# condition A
+find_correlation(presence_A)
+# condition B
+find_correlation(presence_B)
